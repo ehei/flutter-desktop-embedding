@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:example_flutter/ContigModel.dart';
-import 'package:example_flutter/consensus.dart';
 import 'package:example_flutter/sequence/sequence_model.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
@@ -70,6 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _visible = (_counter % 2 == 0) || (_counter % 3 == 0);
       _visible2 = (_counter % 3) == 0;
     });
+  }
+
+  void _addBase() {
+    setState(() {});
   }
 
   @override
@@ -162,7 +165,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontFamily: 'Overpass',
                                 fontWeight: FontWeight.bold),
                           ),
-                          Consensus()
                         ])
                       ],
                     ),
@@ -179,10 +181,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(children: [
-                          Consumer<ContigModel>(
-                            builder: (context, cart, child) {
-                              return Text(
-                                  'Total sequences: ${cart.totalNumberOfSequences}');
+                          Consumer<SequenceModel>(
+                            builder: (context, sequenceModel, child) {
+                              return Text('Total sequences: 0');
                             },
                           )
                         ])
