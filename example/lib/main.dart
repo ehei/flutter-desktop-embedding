@@ -12,16 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:example_flutter/ContigModel.dart';
+import 'package:example_flutter/consensus.dart';
+import 'package:example_flutter/sequence/sequence_model.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
 
-  runApp(new MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => ContigModel()),
+        ChangeNotifierProvider(builder: (context) => SequenceModel()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -49,11 +60,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _visible = false;
+  bool _visible2 = false;
   int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+      _visible = (_counter % 2 == 0) || (_counter % 3 == 0);
+      _visible2 = (_counter % 3) == 0;
     });
   }
 
@@ -74,6 +89,109 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            Container(
+//              padding: const EdgeInsets.all(32),
+              child: Row(
+                children: [
+                  Expanded(
+                    /*1*/
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /*2*/
+                        Row(children: [
+                          Text(
+                            'ACGTACGTACGTACGT',
+                            style: TextStyle(
+                                fontFamily: 'Overpass',
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                        Visibility(
+                          visible: _visible,
+                          child: Row(
+                            children: [
+                              Text(
+                                '  TGCATGCATGCA',
+                                style: TextStyle(
+                                    fontFamily: 'Overpass',
+                                    fontWeight: FontWeight.normal),
+                              )
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: _visible2,
+                          child: Row(
+                            children: [
+                              Text(
+                                '                   GCATGC',
+                                style: TextStyle(
+                                    fontFamily: 'Overpass',
+                                    fontWeight: FontWeight.w100),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  /*3*/
+                  Icon(
+                    Icons.star,
+                    color: Colors.red[500],
+                  ),
+                  Text('41'),
+                ],
+              ),
+            ),
+            Container(
+//              padding: const EdgeInsets.all(32),
+              child: Row(
+                children: [
+                  Expanded(
+                    /*1*/
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /*2*/
+                        Row(children: [
+                          Text(
+                            '|1       |10       |20',
+                            style: TextStyle(
+                                fontFamily: 'Overpass',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Consensus()
+                        ])
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(32),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(children: [
+                          Consumer<ContigModel>(
+                            builder: (context, cart, child) {
+                              return Text(
+                                  'Total sequences: ${cart.totalNumberOfSequences}');
+                            },
+                          )
+                        ])
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

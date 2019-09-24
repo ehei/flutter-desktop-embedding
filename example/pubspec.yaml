@@ -15,10 +15,14 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.0
+  provider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  storyboard: ^0.0.4
+
 
 flutter:
   uses-material-design: true
@@ -39,3 +43,17 @@ flutter:
           weight: 700
         - asset: fonts/Roboto/Roboto-Black.ttf
           weight: 900
+    - family: Drawkcab
+      fonts:
+        - asset: fonts/Drawkcab-Regular.ttf
+          weight: 100
+    - family: Overpass
+      fonts:
+        - asset: fonts/overpass-mono/overpass-mono-light.otf
+          weight: 100
+        - asset: fonts/overpass-mono/overpass-mono-regular.otf
+          weight: 200
+        - asset: fonts/overpass-mono/overpass-mono-semibold.otf
+          weight: 300
+        - asset: fonts/overpass-mono/overpass-mono-bold.otf
+          weight: 400
