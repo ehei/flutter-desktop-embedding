@@ -12,25 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:example_flutter/ContigModel.dart';
-import 'package:example_flutter/sequence/sequence_model.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(builder: (context) => ContigModel()),
-        ChangeNotifierProvider(builder: (context) => SequenceModel()),
-      ],
-      child: MyApp(),
-    ),
+    MyApp(),
   );
 }
 
@@ -149,15 +140,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-//              padding: const EdgeInsets.all(32),
               child: Row(
                 children: [
                   Expanded(
-                    /*1*/
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /*2*/
                         Row(children: [
                           Text(
                             '|1       |10       |20',
@@ -172,27 +160,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(32),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Row(children: [
-                          Consumer<SequenceModel>(
-                            builder: (context, sequenceModel, child) {
-                              return Text('Total sequences: 0');
-                            },
-                          )
-                        ])
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:example_flutter/ContigModel.dart';
+import 'package:example_flutter/contig/contig_model.dart';
 import 'package:example_flutter/sequence/sequence.dart';
 import 'package:flutter_test/flutter_test.dart';
 
