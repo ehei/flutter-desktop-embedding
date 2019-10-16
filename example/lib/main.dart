@@ -12,16 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:example_flutter/sequence/sequence_model.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
 
   runApp(
-    MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => SequenceModel()),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 
@@ -140,12 +147,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
+//              padding: const EdgeInsets.all(32),
               child: Row(
                 children: [
                   Expanded(
+                    /*1*/
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        /*2*/
                         Row(children: [
                           Text(
                             '|1       |10       |20',
@@ -159,6 +169,84 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(32),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(children: [
+                          Consumer<SequenceModel>(
+                            builder: (context, sequenceModel, child) {
+                              return Text('Total sequences: 0');
+                            },
+                          )
+                        ])
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              height: 16.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                      width: 16.0,
+                      color: Colors.red,
+                      child: SizedBox(
+                          width: 100.0,
+                          height: 100.0,
+                          child: Center(
+                            child: Text('A',
+                                maxLines: 1,
+                                style: TextStyle(color: Colors.white)),
+                          ))),
+                  Container(
+                      width: 16.0,
+                      color: Colors.blue,
+                      child: SizedBox(
+                          width: 100.0,
+                          height: 100.0,
+                          child: Center(
+                            child: Text('GATC',
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'dnagc2019',
+                                    fontWeight: FontWeight.w100)),
+                          ))),
+                  Container(
+                    width: 16.0,
+                    color: Colors.green,
+                  ),
+                  Container(
+                    width: 16.0,
+                    color: Colors.yellow,
+                  ),
+                  Container(
+                    width: 16.0,
+                    color: Colors.orange,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: Text(
+                  '*-:=?ABCDGHKMNRSTUVWXYabcdghkmnrstuvwxyz|¥¨©®°µßåç˙˚˜‌‍‎‏† ', // as it appears in the font file
+                  //  both|single strand top|----double strand|single strand bottom
+                  maxLines: 1,
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontFamily: 'dnagc2019',
+                      fontWeight: FontWeight.w100,
+                      fontSize: 22)),
             ),
           ],
         ),

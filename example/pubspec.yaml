@@ -43,10 +43,17 @@ flutter:
           weight: 700
         - asset: fonts/Roboto/Roboto-Black.ttf
           weight: 900
+
     - family: Drawkcab
       fonts:
         - asset: fonts/Drawkcab-Regular.ttf
           weight: 100
+
+    - family: dnagc2019
+      fonts:
+        - asset: fonts/DNAGC2019.ttf
+          weight: 100
+
     - family: Overpass
       fonts:
         - asset: fonts/overpass-mono/overpass-mono-light.otf
