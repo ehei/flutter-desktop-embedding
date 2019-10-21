@@ -16,56 +16,23 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
 
+import 'screens/note_list.dart';
+
 void main() {
   // See https://github.com/flutter/flutter/wiki/Desktop-shells#target-platform-override
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
 
-  runApp(MaterialApp(
-    title: "Test App",
-    home: Scaffold(
-        appBar: AppBar(
-          title: Text("Testing"),
-        ),
-        body: getListView()),
-  ));
+  runApp(MyApp());
 }
 
-Widget getListView() {
-  final listItems = getListElements();
-
-  final listView = ListView.builder(itemBuilder: (context, index) {
-    return ListTile(
-      title: Text(listItems[index]),
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'NoteKeeper',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: NoteList(),
     );
-  });
-
-  return listView;
-}
-
-List<String> getListElements() {
-  final items = List<String>.generate(1000, (counter) {
-    switch (counter) {
-      case 0:
-        {
-          return 'g';
-        }
-
-      case 1:
-        {
-          return 'c';
-        }
-
-      case 2:
-        {
-          return 't';
-        }
-
-      default:
-        {
-          return 'a';
-        }
-    }
-  });
-
-  return items;
+  }
 }
