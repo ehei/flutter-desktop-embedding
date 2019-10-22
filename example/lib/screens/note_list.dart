@@ -1,3 +1,4 @@
+import 'package:example_flutter/screens/note_detail.dart';
 import 'package:flutter/material.dart';
 
 class NoteList extends StatefulWidget {
@@ -17,6 +18,13 @@ class NoteListState extends State<NoteList> {
         title: Text('Notes'),
       ),
       body: getNoteListView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showNoteDetail(context, 'Add Note');
+        },
+        tooltip: 'Add Note',
+        child: Icon(Icons.add),
+      ),
     );
   }
 
@@ -40,8 +48,17 @@ class NoteListState extends State<NoteList> {
               ),
               subtitle: Text("Dummy Date"),
               trailing: Icon(Icons.delete, color: Colors.grey),
+              onTap: () {
+                showNoteDetail(context, 'Edit Note');
+              },
             ),
           );
         });
+  }
+
+  void showNoteDetail(BuildContext context, String title) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return NoteDetail(title);
+    }));
   }
 }
