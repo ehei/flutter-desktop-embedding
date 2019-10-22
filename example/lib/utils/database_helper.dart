@@ -78,4 +78,11 @@ class DatabaseHelper {
       return Note.fromMapObject(item);
     });
   }
+
+//  Map userMap = jsonDecode(jsonString);
+//  var user = User.fromJson(userMap);
+
+//  String json = jsonEncode(user);
+
+
 }

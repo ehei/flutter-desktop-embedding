@@ -1,63 +1,42 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'note.g.dart';
+
+@JsonSerializable()
 class Note {
-  int _id;
+  int id;
 
-  int get id => _id;
+  String title;
+  String description;
+  String date;
+  int priority;
 
-  set id(int value) {
-    _id = value;
-  }
-
-  String _title;
-  String _description;
-  String _date;
-  int _priority;
-
-  Note(this._title, this._date, this._priority, [this._description]);
-  Note.withId(this._id, this._title, this._date, this._priority,
-      [this._description]);
+  Note(this.title, this.date, this.priority, [this.description]);
+  Note.withId(this.id, this.title, this.date, this.priority,
+      [this.description]);
 
   Note.fromMapObject(Map<String, dynamic> map) {
-    this._id = map['id'];
-    this._date = map['date'];
-    this._title = map['title'];
-    this._priority = map['priority'];
-    this._description = map['description'];
-  }
-
-  String get title => _title;
-
-  set title(String value) {
-    this._title = value;
-  }
-
-  String get description => _description;
-
-  set description(String value) {
-    this._description = value;
-  }
-
-  String get date => _date;
-
-  set date(String value) {
-    this._date = value;
-  }
-
-  int get priority => _priority;
-
-  set priority(int value) {
-    if (value >= 1 && value <= 2) this._priority = value;
+    this.id = map['id'];
+    this.date = map['date'];
+    this.title = map['title'];
+    this.priority = map['priority'];
+    this.description = map['description'];
   }
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     if (id != null) {
-      map['id'] = _id;
+      map['id'] = id;
     }
-    map['title'] = _title;
-    map['description'] = _description;
-    map['priority'] = _priority;
-    map['date'] = _date;
+    map['title'] = title;
+    map['description'] = description;
+    map['priority'] = priority;
+    map['date'] = date;
 
     return map;
   }
+
+  factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NoteToJson(this);
 }
