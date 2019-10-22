@@ -71,4 +71,11 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(rowCount);
     return result;
   }
+
+  Future<List<Note>> getNoteList() async {
+    final noteMapList = await getNoteMapList();
+    return noteMapList.map((item) {
+      return Note.fromMapObject(item);
+    });
+  }
 }
